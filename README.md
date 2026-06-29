@@ -15,6 +15,7 @@ Based on the [**Task Tracker**](https://roadmap.sh/projects/task-tracker) projec
 ## Table of Contents
 
 - [Features](#features)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
@@ -35,6 +36,12 @@ Based on the [**Task Tracker**](https://roadmap.sh/projects/task-tracker) projec
 - Lightweight CLI — no database required
 - Cross-platform
 - Zero external dependencies
+
+---
+
+## Demo
+
+![Demo](demo.gif)
 
 ---
 
