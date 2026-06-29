@@ -26,11 +26,11 @@ Based on the [**Task Tracker**](https://roadmap.sh/projects/task-tracker) projec
 
 ## Features
 
-- Create tasks with a description
-- Update task descriptions
-- Delete tasks
+- Create, update, delete, and view tasks
 - Track task status (`todo`, `in-progress`, `done`)
-- Filter tasks by status
+- Filter and list tasks by status
+- Get a single task by ID
+- Interactive REPL mode
 - Persistent JSON storage
 - Lightweight CLI — no database required
 - Cross-platform
@@ -77,7 +77,9 @@ go run . add "Hello, world!"
 | `mark-done` | `task-cli mark-done 1` | Mark a task as `done` |
 | `list` | `task-cli list` | List all tasks |
 | `list` (filtered) | `task-cli list done` | List tasks filtered by status |
-| `--help` | `task-cli --help` | Show usage information |
+| `get` | `task-cli get 1` | Display a single task by ID |
+| `--help` / `-h` | `task-cli --help` | Show usage information |
+| `-i` / `--interactive` | `task-cli -i` | Start interactive REPL mode |
 
 ---
 
@@ -102,6 +104,21 @@ go run . add "Hello, world!"
 
 # Check progress
 ./task-cli list
+```
+
+### Interactive REPL mode
+
+```bash
+task-cli -i
+task> add "Buy milk"
+Task added successfully (ID: 1).
+task> list
+ID: 1, Description: Buy milk, Status: todo, ...
+task> mark-done 1
+Task marked as done successfully.
+task> get 1
+ID: 1, Description: Buy milk, Status: done, ...
+task> quit
 ```
 
 ### Sample output
@@ -161,10 +178,11 @@ You can edit `tasks.json` manually, but the CLI will overwrite it on the next wr
 
 | File | Responsibility |
 |---|---|
-| `main.go` | Entry point — parses `os.Args`, routes commands, handles errors |
+| `main.go` | Entry point — dispatches to CLI or REPL mode |
+| `utils.go` | CLI utilities — usage help, command dispatch, REPL loop, input parsing |
 | `task.go` | `Task` struct, `Status` type, status constants, colored `String()` output |
 | `storage.go` | Reads and writes `tasks.json`, generates sequential IDs |
-| `commands.go` | Business logic for `add`, `update`, `delete`, `mark`, `list` |
+| `commands.go` | Business logic for `add`, `update`, `delete`, `mark`, `list`, `get` |
 | `go.mod` | Go module definition |
 
 ---
